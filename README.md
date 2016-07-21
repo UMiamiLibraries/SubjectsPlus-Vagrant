@@ -1,7 +1,7 @@
 # SubjectsPlus-Vagrant
 A Vagrantfile and shell script to create a development environment for SubjectsPlus
 
-* Install Vagrant
+* Install <a href="https://www.vagrantup.com/downloads.html">Vagrant</a>
 * Clone the repo to your local machine
 * In the SubjectsPlus-Vagrant folder: 
   ```
