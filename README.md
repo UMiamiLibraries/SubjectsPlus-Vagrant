@@ -1,6 +1,8 @@
 # SubjectsPlus-Vagrant
 A Vagrantfile and shell script to create a development environment for SubjectsPlus
 
+## Setup 
+
 * Install <a href="https://www.vagrantup.com/downloads.html">Vagrant</a>
 * Clone the repo to your local machine
 * In the SubjectsPlus-Vagrant folder: 
@@ -9,6 +11,8 @@ A Vagrantfile and shell script to create a development environment for SubjectsP
   ```
 * Visit <a href="http://localhost:8889/SubjectsPlus/control">http://localhost:8889/SubjectsPlus/control</a> to finish the installation
 * The default database username is `sp` and the password is `grokgro3#3ogk3og3`
+
+## Customization
 
 The MySQL username and password are setup using the shell script and can be changed by altering the variables at the top of the script. 
 
