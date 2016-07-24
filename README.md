@@ -10,7 +10,7 @@ A Vagrantfile and shell script to create a development environment for SubjectsP
   vagrant up
   ```
 * Visit <a href="http://localhost:8889/SubjectsPlus/control">http://localhost:8889/SubjectsPlus/control</a> to finish the installation
-* The default database username is `sp` and the password is `grokgro3#3ogk3og3`
+* The default database username is `sp` and the password is `grokgro3#3ogk3og3` .  The database is named `sp' .
 
 ## Customization
 
