@@ -33,7 +33,7 @@ mysql -uroot -p$DBPASSWD -e "CREATE DATABASE $DBNAME" >> /vagrant/vm_build.log 2
 mysql -uroot -p$DBPASSWD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'localhost' identified by '$DBPASSWD'" > /vagrant/vm_build.log 2>&1
 
 echo -e "\n--- Installing PHP-specific packages ---\n"
-apt-get -y install php5 apache2 libapache2-mod-php php5-curl php5-gd php5-mysql php5-xsl php5-gettext >> /vagrant/vm_build.log 2>&1
+apt-get -y install php7.0 apache2 libapache2-mod-php php-curl php-gd php-mysql php-xsl php-gettext >> /vagrant/vm_build.log 2>&1
 
 echo -e "\n--- Enabling mod-rewrite ---\n"
 a2enmod rewrite >> /vagrant/vm_build.log 2>&1
@@ -43,21 +43,24 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
 echo -e "\n--- Setting document root to public directory ---\n"
 rm -rf /var/www
-ln -fs /vagrant/public /var/www
+mkdir /var/www
+mkdir /var/www/html
+ln -fs /vagrant/public /var/www/html
+
 
 echo -e "\n--- Downloading SP from GitHub ---\n"
 git clone https://github.com/subjectsplus/SubjectsPlus.git /vagrant/public/SubjectsPlus
 
 echo -e "\n--- We definitly need to see the PHP errors, turning them on ---\n"
-sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
-sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
+sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.0/apache2/php.ini
+sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.0/apache2/php.ini
 
 # Source https://raw.github.com/Intracto/Puppet/master/apache2/manifests/init.pp
 echo -e "\n--- Change apache user to vagrant ---\n"
-sudo sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=vagrant/' /etc/apache2/envvars
-sudo sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=vagrant/' /etc/apache2/envvars
-sudo chown -R vagrant:www-data /var/lock/apache2
+sudo sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=ubuntu/' /etc/apache2/envvars
+sudo sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=ubuntu/' /etc/apache2/envvars
+sudo chown -R ubuntu /var/lock/apache2
 
 
 echo -e "\n--- Restarting Apache ---\n"
-service apache2 restart >> /vagrant/vm_build.log 2>&1
+sudo service apache2 restart >> /vagrant/vm_build.log 2>&1
